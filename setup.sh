@@ -12,6 +12,28 @@ ask() {
   echo "$REPLY"
 }
 
+# install wireguard und stunnel
+if ! command -v wg &> /dev/null; then
+  echo -e "${green}Installiere WireGuard...${reset}"
+  apt update && apt install -y wireguard
+else
+  echo -e "${green}WireGuard ist bereits installiert.${reset}"
+fi
+if ! command -v stunnel &> /dev/null; then
+  echo -e "${green}Installiere Stunnel...${reset}"
+  apt install -y stunnel
+else
+  echo -e "${green}Stunnel ist bereits installiert.${reset}"
+fi
+if ! command -v openssl &> /dev/null; then
+  echo -e "${green}Installiere OpenSSL...${reset}"
+  apt install -y openssl
+else
+  echo -e "${green}OpenSSL ist bereits installiert.${reset}"
+fi
+
+
+
 echo -e "${bold}WireGuard über Stunnel Setup${reset}"
 ROLE=$(ask "🔧 Rolle wählen [server/client]:")
 
